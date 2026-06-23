@@ -49,12 +49,33 @@ function service_icon($name){
             <p>From a single embroidered patch to a full brand identity &mdash; we cover every thread of the process.</p>
         </div>
         <div class="services-grid">
-            <?php foreach ($SERVICES as $s): ?>
-            <div class="service-card reveal">
-                <div class="service-ico"><?= service_icon($s['icon']) ?></div>
-                <h3><?= htmlspecialchars($s['title']) ?></h3>
-                <p><?= htmlspecialchars($s['text']) ?></p>
-            </div>
+            <?php
+            $SLIDESHOWS = ['vector' => $VECTOR_SHOTS, 'logo' => $LOGO_SHOTS, 'web' => $WEBSITE_SHOTS, 'thread' => $DIGITIZING_SHOTS];
+            foreach ($SERVICES as $i => $s):
+                $shots = $SLIDESHOWS[$s['icon']] ?? null;
+                $isSlideshow = (bool) $shots;
+            ?>
+            <article class="service-card reveal<?= $isSlideshow ? ' is-slideshow' : '' ?>">
+                <?php if ($isSlideshow): ?>
+                    <a class="sc-slideshow count-<?= count($shots) ?>" href="<?= base_url($s['link']) ?>" aria-label="<?= htmlspecialchars($s['title']) ?> portfolio">
+                        <?php foreach ($shots as $img): ?>
+                            <span class="slide" style="background-image:url('<?= base_url($img) ?>')"></span>
+                        <?php endforeach; ?>
+                        <span class="sc-slideshow-tint"></span>
+                    </a>
+                <?php else: ?>
+                    <span class="sc-num"><?= sprintf('%02d', $i + 1) ?></span>
+                    <div class="sc-body">
+                        <div class="service-ico"><?= service_icon($s['icon']) ?></div>
+                        <h3><?= htmlspecialchars($s['title']) ?></h3>
+                        <p><?= htmlspecialchars($s['text']) ?></p>
+                        <a class="sc-link" href="<?= base_url($s['link']) ?>">View Work <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                <?php endif; ?>
+                <a class="sc-label" href="<?= base_url($s['link']) ?>" aria-label="<?= htmlspecialchars($s['title']) ?>">
+                    <span><?= htmlspecialchars($s['tag']) ?></span>
+                </a>
+            </article>
             <?php endforeach; ?>
         </div>
     </div>

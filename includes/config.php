@@ -29,24 +29,65 @@ $SITE = [
 $SERVICES = [
     [
         'icon'  => 'logo',
+        'tag'   => 'Custom Logo',
         'title' => 'Custom Logo Works',
         'text'  => 'Need something new for your new business? We got you! All custom works come with unlimited edits.',
+        'link'  => 'quote.php',
     ],
     [
         'icon'  => 'thread',
+        'tag'   => 'Digitizing',
         'title' => 'Embroidery Digitizing',
         'text'  => "Digitizing is what we started our company with (hint: it's in the name) and that's what we do best!",
+        'link'  => 'portfolio.php?type=digitizing',
     ],
     [
         'icon'  => 'web',
+        'tag'   => 'Websites',
         'title' => 'Website Works',
         'text'  => 'We know websites are the foundation of a new business so we offer them on a subscription basis (no burden on you homie!)',
+        'link'  => 'portfolio.php?type=website',
     ],
     [
         'icon'  => 'vector',
+        'tag'   => 'Vector Arts',
         'title' => 'Vector Arts',
         'text'  => 'We can get your pixelated, low quality, skewed & badly photographed artwork into a full-fledged vector art.',
+        'link'  => 'portfolio.php?type=vector',
     ],
+];
+
+// Vector showcase images — used both in the Portfolios > Vector grid and as the
+// background slideshow on the home "Vector Arts" service tile.
+$VECTOR_SHOTS = [
+    'assets/img/portfolio/vector-1.png',
+    'assets/img/portfolio/vector-2.png',
+    'assets/img/portfolio/vector-3.png',
+    'assets/img/portfolio/vector-4.png',
+];
+
+// Custom Logo showcase images — Portfolios > Logo grid + home "Custom Logo Works" slideshow.
+$LOGO_SHOTS = [
+    'assets/img/portfolio/logo-1.png',
+    'assets/img/portfolio/logo-2.png',
+    'assets/img/portfolio/logo-3.png',
+    'assets/img/portfolio/logo-4.png',
+];
+
+// Website showcase images — Portfolios > Website grid + home "Website Works" slideshow.
+$WEBSITE_SHOTS = [
+    'assets/img/portfolio/website-1.jpg',
+    'assets/img/portfolio/website-2.jpg',
+    'assets/img/portfolio/website-3.avif',
+    'assets/img/portfolio/website-4.avif',
+];
+
+// Embroidery digitizing showcase images — Portfolios > Digitizing grid + home "Embroidery Digitizing" slideshow.
+$DIGITIZING_SHOTS = [
+    'assets/img/portfolio/digitizing-1.png',
+    'assets/img/portfolio/digitizing-2.webp',
+    'assets/img/portfolio/digitizing-3.jpg',
+    'assets/img/portfolio/digitizing-4.jpg',
 ];
 
 $WHY = [

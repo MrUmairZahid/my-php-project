@@ -1,3 +1,8 @@
+@font-face{
+    font-family:'Rostex Outline';
+    src:url('../fonts/Rostex-Outline.ttf') format('truetype');
+    font-weight:400;font-style:normal;font-display:swap;
+}
 /* ===========================================================
    Summit Prints — stylesheet
    Palette: deep navy + brand red accent (matches the logo)
@@ -128,17 +133,74 @@ section{padding:86px 0}
 
 /* ---------- Services ---------- */
 .bg-alt{background:var(--bg-alt)}
-.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+/* ----- Service tiles (2x2, upright vertical title threaded on the box edge) ----- */
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:64px}
 .service-card{
-    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;
-    transition:.25s;position:relative;overflow:hidden;
+    position:relative;min-height:288px;background:#fff;
+    border:1px solid var(--line);border-radius:20px;transition:.32s cubic-bezier(.2,.7,.2,1);
 }
-.service-card::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:.3s}
-.service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
-.service-card:hover::before{transform:scaleX(1)}
-.service-ico{width:58px;height:58px;border-radius:14px;background:rgba(216,35,42,.16);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.service-card h3{font-size:1.18rem;margin-bottom:10px}
-.service-card p{font-size:.95rem;color:var(--body)}
+/* soft brand glow, mirrored toward the outer corner */
+.service-card::before{content:"";position:absolute;inset:0;border-radius:20px;pointer-events:none;transition:.32s;
+    background:radial-gradient(260px 260px at 0 0,rgba(216,35,42,.09),transparent 62%)}
+.service-card:nth-child(odd)::before{background:radial-gradient(260px 260px at 100% 0,rgba(216,35,42,.09),transparent 62%)}
+.service-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+
+.sc-num{position:absolute;top:14px;font-family:'Playfair Display',serif;font-weight:800;
+    font-size:4.4rem;line-height:1;color:var(--ink);opacity:.05;z-index:0}
+.service-card:nth-child(odd) .sc-num{left:26px}
+.service-card:nth-child(even) .sc-num{right:26px}
+
+.sc-body{position:relative;z-index:2;padding:34px 30px;display:flex;flex-direction:column;align-items:flex-start;height:100%}
+.service-card:nth-child(odd)  .sc-body{padding-right:54px}
+.service-card:nth-child(even) .sc-body{padding-left:54px}
+.service-ico{width:60px;height:60px;border-radius:16px;background:rgba(216,35,42,.12);color:var(--gold-deep);
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:.3s}
+.service-card:hover .service-ico{background:var(--gold);color:#fff;transform:rotate(-6deg)}
+.service-card h3{font-size:1.32rem;margin-bottom:10px}
+.service-card p{font-size:.95rem;color:var(--body);margin-bottom:18px}
+.sc-link{margin-top:auto;font-weight:600;font-size:.92rem;color:var(--gold-deep);display:inline-flex;align-items:center;gap:7px}
+.sc-link span{transition:.25s}
+.sc-link:hover span{transform:translateX(5px)}
+
+/* upright vertical title sitting ON the inner box line (no separate band) */
+.sc-label{position:absolute;top:50%;z-index:3;text-decoration:none;line-height:1;transition:.3s}
+.sc-label span{display:block;white-space:nowrap;writing-mode:vertical-rl;text-orientation:upright;
+    font-family:'Bebas Neue','Oswald',sans-serif;font-weight:400;font-size:1.42rem;letter-spacing:1px;line-height:.92;
+    text-transform:uppercase;transition:.3s;
+    color:transparent;-webkit-text-fill-color:transparent;
+    -webkit-text-stroke:1.1px var(--navy);text-stroke:1.1px var(--navy)}
+.service-card:nth-child(odd)  .sc-label{right:0;transform:translate(50%,-50%)}
+.service-card:nth-child(even) .sc-label{left:0; transform:translate(-50%,-50%)}
+.service-card:hover .sc-label span{-webkit-text-stroke-color:var(--gold);text-stroke-color:var(--gold)}
+
+/* Vector Arts tile -> background slideshow (text removed) */
+.service-card.is-slideshow{overflow:hidden}
+.service-card.is-slideshow::before{display:none}
+.sc-slideshow{position:absolute;inset:0;z-index:0;display:block;border-radius:20px;overflow:hidden;
+    background:linear-gradient(135deg,var(--navy),#6b4ea0)}
+.sc-slideshow .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0}
+/* 4-image timing */
+.sc-slideshow.count-4 .slide{animation:slideFade4 20s infinite}
+.sc-slideshow.count-4 .slide:nth-child(1){animation-delay:0s}
+.sc-slideshow.count-4 .slide:nth-child(2){animation-delay:5s}
+.sc-slideshow.count-4 .slide:nth-child(3){animation-delay:10s}
+.sc-slideshow.count-4 .slide:nth-child(4){animation-delay:15s}
+@keyframes slideFade4{0%{opacity:0}3%{opacity:1}25%{opacity:1}28%{opacity:0}100%{opacity:0}}
+/* 2-image timing */
+.sc-slideshow.count-2 .slide{animation:slideFade2 12s infinite}
+.sc-slideshow.count-2 .slide:nth-child(1){animation-delay:0s}
+.sc-slideshow.count-2 .slide:nth-child(2){animation-delay:6s}
+@keyframes slideFade2{0%{opacity:0}5%{opacity:1}45%{opacity:1}50%{opacity:0}100%{opacity:0}}
+.sc-slideshow-tint{position:absolute;inset:0;z-index:2;pointer-events:none}
+.service-card.is-slideshow:nth-child(even) .sc-slideshow-tint{background:linear-gradient(90deg,rgba(14,27,51,.55),rgba(14,27,51,.04) 55%)}
+.service-card.is-slideshow:nth-child(odd)  .sc-slideshow-tint{background:linear-gradient(270deg,rgba(14,27,51,.55),rgba(14,27,51,.04) 55%)}
+.service-card.is-slideshow:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+.service-card.is-slideshow .sc-label{transform:translateY(-50%);z-index:3}
+.service-card.is-slideshow:nth-child(odd)  .sc-label{right:16px;left:auto}
+.service-card.is-slideshow:nth-child(even) .sc-label{left:16px;right:auto}
+.service-card.is-slideshow .sc-label span{-webkit-text-stroke-color:#fff;text-stroke-color:#fff;
+    filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.service-card.is-slideshow:hover .sc-label span{-webkit-text-stroke-color:#fff;text-stroke-color:#fff}
 
 /* ---------- Why choose us ---------- */
 .why{background:
@@ -221,7 +283,9 @@ section{padding:86px 0}
 .pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .pf-item{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#fff;transition:.25s}
 .pf-item:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
-.pf-thumb{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Playfair Display',serif;font-size:1.3rem;text-align:center;padding:16px}
+.pf-thumb{position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Playfair Display',serif;font-size:1.3rem;text-align:center;padding:16px;overflow:hidden}
+.pf-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:.4s}
+.pf-item:hover .pf-thumb img{transform:scale(1.06)}
 .pf-body{padding:18px}
 .pf-body h4{font-family:'Poppins',sans-serif;font-size:1rem;color:var(--ink)}
 .pf-body span{color:var(--muted);font-size:.85rem}
